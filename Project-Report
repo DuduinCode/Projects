@@ -1,0 +1,84 @@
+ Abstract:
+This project demonstrates the implementation of a GitOps workflow using ArgoCD on a Kubernetes cluster hosted on an AWS EC2 instance. GitOps is a modern DevOps practice where Git is the single source of truth for declarative infrastructure and applications. This project automates application deployment and lifecycle management using ArgoCD by synchronizing Kubernetes manifests from a GitHub repository.
+
+Tools & Technologies Used:
+Cloud Provider: Amazon Web Services (AWS EC2)
+
+Instance Type: t2.medium (recommended for Minikube + ArgoCD)
+
+Operating System: Ubuntu 22.04 LTS
+
+Orchestration: Kubernetes (via Minikube)
+
+GitOps Tool: ArgoCD
+
+VCS: GitHub
+
+Application: Guestbook app (from ArgoCD example repo)
+
+ Architecture Diagram:
+GitHub Repo (App YAMLs)
+        |
+        ▼
+    Argo CD (on K8s)
+        |
+        ▼
+ Kubernetes Cluster (Minikube on EC2)
+        |
+        ▼
+ Deployed App (guestbook-ui via NodePort)
+ Project Workflow:
+Step 1: Launch EC2 Instance
+Created an Ubuntu EC2 instance on AWS with port 22 (SSH), 30000–32767 (NodePort), and 80 open in security group.
+
+Step 2: Install Minikube and Kubernetes Tools
+Installed Docker, kubectl, and Minikube.
+
+Started a single-node Kubernetes cluster using Minikube.
+
+Step 3: Install ArgoCD
+Deployed ArgoCD in the Kubernetes cluster using official YAML manifests.
+
+Exposed ArgoCD server using a NodePort (30109).
+
+Step 4: Access ArgoCD UI
+Retrieved ArgoCD admin password using a secret.
+
+Logged into ArgoCD via: http://<EC2-IP>:30109
+
+Step 5: Deploy Application via GitOps
+Used public repo: https://github.com/argoproj/argocd-example-apps.git
+
+Chose the path guestbook and deployed it to the default namespace.
+
+Synced and deployed the application from the GitHub repo.
+
+Verified access to the application on NodePort: http://<EC2-IP>:32669
+
+Outcomes:
+Successfully implemented GitOps workflow.
+
+Gained hands-on experience with Kubernetes, ArgoCD, and AWS.
+
+Understood synchronization between GitHub repos and cluster state.
+
+ Learning & Takeaways:
+Understanding of declarative infrastructure and GitOps principles.
+
+Real-world deployment practice using ArgoCD.
+
+Exposure to Kubernetes application lifecycle management.
+
+Importance of automated, version-controlled, and auditable deployments.
+
+ Screenshots (Attach):
+ArgoCD UI Dashboard
+
+Application Sync Page
+
+Running Guestbook App
+
+Kubernetes Services Output
+
+Conclusion:
+This project showcases how modern DevOps practices like GitOps can be effectively used to manage application deployments in Kubernetes. ArgoCD simplifies continuous delivery by using Git repositories as the source of truth, making deployments automated, consistent, and version-controlled.
